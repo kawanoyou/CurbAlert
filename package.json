@@ -20,6 +20,7 @@
     "@auth/sveltekit": "^1.11.1",
     "@googlemaps/js-api-loader": "^1.16.8",
     "@libsql/client": "^0.14.0",
+    "@vercel/blob": "^2.0.0",
     "bcrypt": "^5.1.1",
     "jsonwebtoken": "^9.0.2",
     "sharp": "^0.33.5",

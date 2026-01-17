@@ -1,11 +1,7 @@
 import { json } from '@sveltejs/kit';
-import { writeFile, mkdir } from 'fs/promises';
-import { existsSync } from 'fs';
+import { put } from '@vercel/blob';
 import sharp from 'sharp';
-import { v4 as uuidv4 } from 'uuid';
-import path from 'path';
 
-const UPLOAD_DIR = 'static/uploads';
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
 
@@ -38,29 +34,25 @@ export async function POST({ request, locals }) {
       return json({ error: 'JPEG、PNG、WebP形式の画像のみアップロード可能です' }, { status: 400 });
     }
 
-    // アップロードディレクトリを作成（存在しない場合）
-    if (!existsSync(UPLOAD_DIR)) {
-      await mkdir(UPLOAD_DIR, { recursive: true });
-    }
-
-    // ファイル名を生成
-    const fileExtension = path.extname(file.name) || '.jpg';
-    const fileName = `${uuidv4()}${fileExtension}`;
-    const filePath = path.join(UPLOAD_DIR, fileName);
-
     // ファイルをバッファに読み込む
     const buffer = Buffer.from(await file.arrayBuffer());
 
     // Sharpで画像を最適化
-    await sharp(buffer)
+    const optimizedBuffer = await sharp(buffer)
       .resize(1200, 1200, { fit: 'inside', withoutEnlargement: true })
       .jpeg({ quality: 85 })
-      .toFile(filePath);
+      .toBuffer();
 
-    // 公開URLを返す
-    const publicUrl = `/uploads/${fileName}`;
+    // Vercel Blobにアップロード
+    const fileName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+    const blob = await put(fileName, optimizedBuffer, {
+      access: 'public',
+      contentType: 'image/jpeg'
+    });
 
-    return json({ success: true, url: publicUrl, fileName });
+    console.log(`Uploaded to Vercel Blob: ${blob.url}`);
+
+    return json({ success: true, url: blob.url, fileName: fileName });
   } catch (error) {
     console.error('Upload error:', error);
     return json({ error: '画像のアップロードに失敗しました' }, { status: 500 });
