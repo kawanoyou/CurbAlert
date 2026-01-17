@@ -1,13 +1,13 @@
-# モッテケ (MOTTEKE) - 要件定義書
+# CurbAlert - Requirements Document
 
-## 📖 プロジェクト概要
+## 📖 Project Overview
 
-### アプリ名
-**モッテケ (MOTTEKE)**
+### App Name
+**CurbAlert**
 
-### コンセプト
-近所の不用品を地図上で簡単に譲渡・取引できるWebアプリ。
-「家の前に置いておくから、持っていって（モッテケ）」という日本版Curb Alertを実現。
+### Concept
+A web app for discovering and sharing free items left on the curb in your neighborhood.
+Making it easy to give away unwanted items and find treasures in your local area.
 
 ### ターゲットユーザー
 - 引っ越しで不用品を処分したい人

@@ -1,14 +1,14 @@
-# モッテケ (MOTTEKE) - Agents Configuration
+# CurbAlert - Agents Configuration
 
-このファイルはClaude Codeがプロジェクトを効率的に実装するための設定ファイルです。
+This file contains the configuration for Claude Code to efficiently implement the project.
 
 ---
 
-## 🎯 プロジェクト概要
+## 🎯 Project Overview
 
-**アプリ名:** モッテケ (MOTTEKE)
-**目的:** 近所の不用品を地図上で簡単に譲渡・取引できるWebアプリ
-**技術スタック:** SvelteKit + Google Maps API + Turso (SQLite)
+**App Name:** CurbAlert
+**Purpose:** A web app for discovering and sharing free items left on the curb in your neighborhood
+**Tech Stack:** SvelteKit + Google Maps API + Turso (SQLite)
 
 ---
 

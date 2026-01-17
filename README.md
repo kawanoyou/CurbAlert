@@ -1,6 +1,6 @@
-# モッテケ (MOTTEKE)
+# CurbAlert
 
-近所の不用品を地図上で簡単に譲渡・取引できるWebアプリ
+Discover and share free items left on the curb in your neighborhood
 
 ## 🚀 セットアップ
 
@@ -46,13 +46,13 @@ curl -sSfL https://get.tur.so/install.sh | bash
 turso auth login
 
 # データベースを作成
-turso db create motteke
+turso db create curb-alert
 
 # 接続情報を取得
-turso db show motteke
+turso db show curb-alert
 
 # 認証トークンを作成
-turso db tokens create motteke
+turso db tokens create curb-alert
 ```
 
 ### 3. 開発サーバーの起動
@@ -66,7 +66,7 @@ npm run dev
 ## 📁 プロジェクト構成
 
 ```
-motteke/
+curb-alert/
 ├── src/
 │   ├── routes/              # ページとAPIルート
 │   │   ├── +page.svelte     # トップページ
@@ -146,8 +146,8 @@ motteke/
 
 詳細な要件定義と開発ガイドラインについては、以下のファイルを参照してください：
 
-- `motteke-requirements.md` - 要件定義書
-- `motteke-agents.md` - 開発ガイドライン
+- `curb-alert-requirements.md` - 要件定義書
+- `curb-alert-agents.md` - 開発ガイドライン
 
 ## 📄 ライセンス
 
