@@ -67,8 +67,8 @@
 </script>
 
 <svelte:head>
-  <title>モッテケ - 近所の不用品を地図上で簡単に譲渡・取引</title>
-  <meta name="description" content="近所の不用品を地図上で簡単に譲渡・取引できるWebアプリ" />
+  <title>CurbAlert - Find Free Items in Your Neighborhood</title>
+  <meta name="description" content="Discover and share free items left on the curb in your neighborhood" />
 </svelte:head>
 
 <div class="app-container">

@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import path from 'path';
 
 const UPLOAD_DIR = 'static/uploads';
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
 
 export async function POST({ request, locals }) {
@@ -23,9 +23,14 @@ export async function POST({ request, locals }) {
       return json({ error: 'ファイルが選択されていません' }, { status: 400 });
     }
 
+    // デバッグ用ログ
+    console.log(`File size: ${file.size} bytes (${(file.size / 1024 / 1024).toFixed(2)} MB)`);
+    console.log(`Max size: ${MAX_FILE_SIZE} bytes (${(MAX_FILE_SIZE / 1024 / 1024).toFixed(2)} MB)`);
+
     // ファイルサイズチェック
     if (file.size > MAX_FILE_SIZE) {
-      return json({ error: 'ファイルサイズは5MB以下にしてください' }, { status: 400 });
+      console.log(`File size ${file.size} exceeds maximum ${MAX_FILE_SIZE}`);
+      return json({ error: `ファイルサイズは10MB以下にしてください（現在: ${(file.size / 1024 / 1024).toFixed(2)}MB）` }, { status: 400 });
     }
 
     // ファイルタイプチェック

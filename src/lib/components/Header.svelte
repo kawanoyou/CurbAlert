@@ -15,8 +15,8 @@
 <header>
   <div class="header-content">
     <a href="/" class="logo">
-      <span class="logo-icon">📦</span>
-      <span class="logo-text">モッテケ</span>
+      <span class="logo-icon">🚨</span>
+      <span class="logo-text">CurbAlert</span>
     </a>
 
     <nav>

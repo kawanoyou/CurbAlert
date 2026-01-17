@@ -7,7 +7,7 @@
 </script>
 
 <svelte:head>
-  <title>ログイン - モッテケ</title>
+  <title>ログイン - CurbAlert</title>
 </svelte:head>
 
 <div class="container">

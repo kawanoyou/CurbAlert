@@ -54,7 +54,7 @@
 </script>
 
 <svelte:head>
-  <title>新規登録 - モッテケ</title>
+  <title>新規登録 - CurbAlert</title>
 </svelte:head>
 
 <div class="container">

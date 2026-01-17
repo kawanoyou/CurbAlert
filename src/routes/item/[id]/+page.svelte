@@ -89,7 +89,7 @@
 </script>
 
 <svelte:head>
-  <title>{data.item.title} - モッテケ</title>
+  <title>{data.item.title} - CurbAlert</title>
   <meta name="description" content={data.item.description} />
 </svelte:head>
 

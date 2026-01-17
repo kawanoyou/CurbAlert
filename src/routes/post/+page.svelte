@@ -103,7 +103,7 @@
 </script>
 
 <svelte:head>
-  <title>出品する - モッテケ</title>
+  <title>出品する - CurbAlert</title>
 </svelte:head>
 
 <div class="app-container">
