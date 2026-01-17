@@ -61,21 +61,18 @@
 
     for (const file of files) {
       try {
-        const formData = new FormData();
-        formData.append('image', file);
+        // 画像を最適化
+        const optimizedFile = await optimizeImage(file);
 
-        const response = await fetch('/api/upload', {
-          method: 'POST',
-          body: formData
+        // Vercel Blob Client Upload を使用
+        const { upload } = await import('@vercel/blob/client');
+
+        const blob = await upload(optimizedFile.name, optimizedFile, {
+          access: 'public',
+          handleUploadUrl: '/api/upload',
         });
 
-        const data = await response.json();
-
-        if (response.ok) {
-          uploadedImages = [...uploadedImages, data.url];
-        } else {
-          alert(data.error || '画像のアップロードに失敗しました');
-        }
+        uploadedImages = [...uploadedImages, blob.url];
       } catch (error) {
         console.error('Upload error:', error);
         alert('画像のアップロードに失敗しました');
@@ -84,6 +81,61 @@
 
     uploading = false;
     event.target.value = '';
+  }
+
+  // 画像の最適化処理
+  async function optimizeImage(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+
+          // 最大サイズを1200pxに制限
+          const maxSize = 1200;
+          if (width > height) {
+            if (width > maxSize) {
+              height = Math.round((height * maxSize) / width);
+              width = maxSize;
+            }
+          } else {
+            if (height > maxSize) {
+              width = Math.round((width * maxSize) / height);
+              height = maxSize;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+
+          canvas.toBlob(
+            (blob) => {
+              if (blob) {
+                const optimizedFile = new File(
+                  [blob],
+                  file.name.replace(/\.[^.]+$/, '.jpg'),
+                  { type: 'image/jpeg' }
+                );
+                resolve(optimizedFile);
+              } else {
+                reject(new Error('画像の最適化に失敗しました'));
+              }
+            },
+            'image/jpeg',
+            0.85
+          );
+        };
+        img.onerror = () => reject(new Error('画像の読み込みに失敗しました'));
+        img.src = e.target.result;
+      };
+      reader.onerror = () => reject(new Error('ファイルの読み込みに失敗しました'));
+      reader.readAsDataURL(file);
+    });
   }
 
   function removeImage(index) {
